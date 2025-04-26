@@ -428,7 +428,7 @@ Start editing this text or paste your own Markdown content.
                                         className="min-h-[500px] font-mono text-sm p-6"
                                     />
                                 </CardContent>
-                                <CardFooter className="border-t px-6 py-4 bg-muted/50">
+                                <CardFooter className="px-6 py-4">
                                     <Button
                                         onClick={() => setActiveTab('preview')}
                                         variant="default"
@@ -489,7 +489,7 @@ Start editing this text or paste your own Markdown content.
                 </Tabs>
 
                 {/* Quick Formatting Guide Card */}
-                <Card className="mt-8 shadow-sm border-0">
+                <Card className="mt-8 shadow-sm border-0 hidden">
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <HelpCircle className="h-5 w-5" />
