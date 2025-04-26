@@ -1,4 +1,4 @@
-# Markdown 2 Medium Converter
+# Markdown2Medium Converter
 
 ![Screenshot](public/image.png)
 

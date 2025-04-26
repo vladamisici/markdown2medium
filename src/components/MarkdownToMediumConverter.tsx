@@ -19,9 +19,7 @@ import {
     Eye,
     FileText,
     HelpCircle,
-    Moon,
     Rocket,
-    Sun,
     X
 } from 'lucide-react';
 import { marked } from 'marked';
@@ -32,14 +30,14 @@ const MarkdownToMediumConverter = () => {
     const [htmlOutput, setHtmlOutput] = useState('');
     const [copied, setCopied] = useState(false);
     const [activeTab, setActiveTab] = useState('editor');
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode] = useState(false);
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
     const [addMediumClasses, setAddMediumClasses] = useState(true);
     const [showOnboarding, setShowOnboarding] = useState(true);
     const [showQuickGuide, setShowQuickGuide] = useState(false);
 
-    const sampleMarkdown = `# Welcome to Markdown 2 Medium Converter!
+    const sampleMarkdown = `# Welcome to Markdown2Medium Converter!
 
 ## Getting Started
 
@@ -163,7 +161,7 @@ Start editing this text or paste your own Markdown content.
                     <DialogHeader>
                         <div className="flex items-center gap-3">
                             <Rocket className="h-8 w-8 text-blue-600" />
-                            <DialogTitle className="text-2xl">Welcome to Markdown 2 Medium Converter!</DialogTitle>
+                            <DialogTitle className="text-2xl">Welcome to Markdown2Medium Converter!</DialogTitle>
                         </div>
                         <DialogDescription className="text-left pt-4">
                             Let&apos;s get you started with this simple 3-step guide:
@@ -260,7 +258,7 @@ Start editing this text or paste your own Markdown content.
                         <div>
                             <div className="flex items-center gap-3">
                                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                    Markdown 2 Medium
+                                    Markdown2Medium
                                 </h1>
                             </div>
                             <p className="text-lg text-muted-foreground mt-2">
@@ -268,7 +266,7 @@ Start editing this text or paste your own Markdown content.
                             </p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="flex items-center gap-2">
+                            {/* <div className="flex items-center gap-2">
                                 <Sun className="h-5 w-5 text-gray-400" />
                                 <Switch
                                     checked={darkMode}
@@ -276,7 +274,7 @@ Start editing this text or paste your own Markdown content.
                                     className="data-[state=checked]:bg-gray-800"
                                 />
                                 <Moon className="h-5 w-5 text-gray-400" />
-                            </div>
+                            </div> */}
                             <Button
                                 variant="outline"
                                 onClick={() => setShowQuickGuide(true)}
