@@ -2,7 +2,7 @@
 
 ![Screenshot](public/image.png)
 
-A powerful tool that converts Markdown to Medium-compatible HTML with one click. Perfect for writers who want to maintain their workflow in Markdown while publishing to Medium.
+A powerful tool that converts Markdown to Medium-compatible text. Perfect for writers who want to maintain their workflow in Markdown while publishing to Medium.
 
 ## Getting Started 🚀
 
@@ -46,13 +46,6 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Usage Guide 📝
-
-1. **Write your content** in the Markdown editor
-2. **Preview** how it will look on Medium
-3. **Copy the HTML** with one click
-4. **Paste into Medium's editor** using "Import from HTML" or directly
-
-OR
 
 1. **Write your content** in the Markdown editor
 2. **Preview** how it will look on Medium

@@ -13,8 +13,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import DOMPurify from 'dompurify';
 import {
-    CheckCircle2,
-    Copy,
     Download,
     Eye,
     FileText,
@@ -28,7 +26,6 @@ import { useCallback, useEffect, useState } from 'react';
 const MarkdownToMediumConverter = () => {
     const [markdown, setMarkdown] = useState('');
     const [htmlOutput, setHtmlOutput] = useState('');
-    const [copied, setCopied] = useState(false);
     const [activeTab, setActiveTab] = useState('editor');
     const [darkMode] = useState(false);
     const [wordCount, setWordCount] = useState(0);
@@ -47,8 +44,7 @@ Here's a sample post to show you how it works:
 
 - ✨ Clean editor with live preview
 - 🎨 Medium-specific formatting
-- 📋 One-click copy HTML
-- 💾 Export to file
+- 💾 Export to HTML file
 
 ## Try These Elements
 
@@ -121,17 +117,6 @@ Start editing this text or paste your own Markdown content.
             setMarkdown(sampleMarkdown);
         }
     }, [markdown, convertMarkdown, sampleMarkdown]);
-
-    const copyToClipboard = useCallback(async () => {
-        try {
-            await navigator.clipboard.writeText(htmlOutput);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        } catch (err) {
-            console.error('Copy failed:', err);
-        }
-    }, [htmlOutput]);
-
 
     const downloadHtml = useCallback(() => {
         const blob = new Blob([htmlOutput], { type: 'text/html' });
@@ -377,7 +362,7 @@ Start editing this text or paste your own Markdown content.
                                         </TooltipContent>
                                     </Tooltip>
 
-                                    <Tooltip>
+                                    {/* <Tooltip>
                                         <TooltipTrigger asChild>
                                             <Button
                                                 onClick={copyToClipboard}
@@ -396,7 +381,7 @@ Start editing this text or paste your own Markdown content.
                                         <TooltipContent>
                                             <p>Copy HTML to clipboard</p>
                                         </TooltipContent>
-                                    </Tooltip>
+                                    </Tooltip> */}
 
                                     <Tooltip>
                                         <TooltipTrigger asChild>
@@ -435,7 +420,9 @@ Start editing this text or paste your own Markdown content.
                                 </CardHeader>
                                 <CardContent>
                                     <Textarea
-                                        placeholder="# Start writing your markdown here...\n\nTry headings, lists, and other formatting!"
+                                        placeholder="# Start writing your markdown here...
+                                        
+                                        Try headings, lists, and other formatting!"
                                         value={markdown}
                                         onChange={(e) => setMarkdown(e.target.value)}
                                         className="min-h-[500px] font-mono text-sm p-6"
