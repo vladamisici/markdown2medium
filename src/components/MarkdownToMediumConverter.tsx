@@ -122,7 +122,7 @@ Start editing this text or paste your own Markdown content.
             localStorage.setItem('firstVisit', 'false');
             setMarkdown(sampleMarkdown);
         }
-    }, [markdown, convertMarkdown]);
+    }, [markdown, convertMarkdown, sampleMarkdown]);
 
     const copyToClipboard = useCallback(async () => {
         try {
@@ -149,7 +149,7 @@ Start editing this text or paste your own Markdown content.
 
     const loadSample = useCallback(() => {
         setMarkdown(sampleMarkdown);
-    }, []);
+    }, [sampleMarkdown]);
 
     const clearEditor = useCallback(() => {
         setMarkdown('');
@@ -166,7 +166,7 @@ Start editing this text or paste your own Markdown content.
                             <DialogTitle className="text-2xl">Welcome to Markdown 2 Medium Converter!</DialogTitle>
                         </div>
                         <DialogDescription className="text-left pt-4">
-                            Let's get you started with this simple 3-step guide:
+                            Let&apos;s get you started with this simple 3-step guide:
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -175,7 +175,7 @@ Start editing this text or paste your own Markdown content.
                             <div>
                                 <h3 className="font-semibold">Write or paste your Markdown</h3>
                                 <p className="text-sm text-muted-foreground my-2">
-                                    Use the editor to write your content with Markdown syntax. We've preloaded a sample for you.
+                                    Use the editor to write your content with Markdown syntax. We&apos;ve preloaded a sample for you.
                                 </p>
                             </div>
                         </div>
@@ -193,7 +193,7 @@ Start editing this text or paste your own Markdown content.
                             <div>
                                 <h3 className="font-semibold">Copy or export HTML</h3>
                                 <p className="text-sm text-muted-foreground my-2">
-                                    Get the formatted HTML to paste directly into Medium's editor.
+                                    Get the formatted HTML or copy the content to paste directly into Medium&apos;s editor.
                                 </p>
                             </div>
                         </div>
@@ -492,8 +492,8 @@ Start editing this text or paste your own Markdown content.
                                 <CardFooter className="border-t px-6 py-4 bg-muted/50">
                                     <Alert className="bg-blue-50/50 dark:bg-blue-900/10 border-blue-200 dark:border-blue-800">
                                         <AlertDescription className="text-blue-900 dark:text-blue-200">
-                                            <strong>Tip:</strong> Copy the HTML and paste it into Medium's editor using the{" "}
-                                            <span className="font-semibold">"Import from HTML"</span>{" "}
+                                            <strong>Tip:</strong> Copy the HTML and paste it into Medium&apos;s editor using the{" "}
+                                            <span className="font-semibold">&quot;Import from HTML&quot;</span>{" "}
                                             feature or by pasting directly into the editor.
                                         </AlertDescription>
                                     </Alert>
@@ -511,7 +511,7 @@ Start editing this text or paste your own Markdown content.
                             Need Help with Markdown?
                         </CardTitle>
                         <CardDescription>
-                            Here's a quick reference for common formatting syntax
+                            Here&apos;s a quick reference for common formatting syntax
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
