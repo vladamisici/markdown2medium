@@ -9,7 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Input } from '@/components/ui/input';
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
@@ -25,7 +24,6 @@ import {
     Eye,
     Github,
     HelpCircle,
-    ImageIcon,
     Loader2,
     Maximize,
     Play,
@@ -59,38 +57,7 @@ interface ProcessedElement {
     placeholder: string;
 }
 
-const MarkdownToMediumConverter: React.FC = () => {
-    const [markdown, setMarkdown] = useState<string>('');
-    const [htmlOutput, setHtmlOutput] = useState<string>('');
-    const [activeTab, setActiveTab] = useState<string>('editor');
-    const [darkMode] = useState<boolean>(false);
-    const [wordCount, setWordCount] = useState<number>(0);
-    const [charCount, setCharCount] = useState<number>(0);
-    const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
-    const [showQuickGuide, setShowQuickGuide] = useState<boolean>(false);
-    const [showSettings, setShowSettings] = useState<boolean>(false);
-    const [copied, setCopied] = useState<boolean>(false);
-    const { toast } = useToast();
-    
-    // Conversion states
-    const [isConverting, setIsConverting] = useState<boolean>(false);
-    const [convertProgress, setConvertProgress] = useState<string>('');
-    const [hasConverted, setHasConverted] = useState<boolean>(false);
-    const highlighterRef = useRef<any>(null);
-    
-    // Settings state
-    const [settings, setSettings] = useState<ConversionSettings>({
-        tableHandlingMethod: 'image',
-        codeHandlingMethod: 'html',
-        codeTheme: 'light',
-        mermaidHandlingMethod: 'image',
-        mermaidTheme: 'light',
-        addMediumClasses: true,
-        imgbbApiKey: '',
-        uploadToImgBB: false
-    });
-
-    const sampleMarkdown = `# Welcome to Markdown2Medium Converter!
+const sampleMarkdown = `# Welcome to Markdown2Medium Converter!
 
 ## Getting Started
 
@@ -158,6 +125,39 @@ graph TD
 
 Start editing this text or paste your own Markdown content.
 `;
+
+const MarkdownToMediumConverter: React.FC = () => {
+    const [markdown, setMarkdown] = useState<string>('');
+    const [htmlOutput, setHtmlOutput] = useState<string>('');
+    const [activeTab, setActiveTab] = useState<string>('editor');
+    const [darkMode] = useState<boolean>(false);
+    const [wordCount, setWordCount] = useState<number>(0);
+    const [charCount, setCharCount] = useState<number>(0);
+    const [showOnboarding, setShowOnboarding] = useState<boolean>(false);
+    const [showQuickGuide, setShowQuickGuide] = useState<boolean>(false);
+    const [showSettings, setShowSettings] = useState<boolean>(false);
+    const [copied, setCopied] = useState<boolean>(false);
+    const { toast } = useToast();
+    
+    // Conversion states
+    const [isConverting, setIsConverting] = useState<boolean>(false);
+    const [convertProgress, setConvertProgress] = useState<string>('');
+    const [hasConverted, setHasConverted] = useState<boolean>(false);
+    const highlighterRef = useRef<{
+        codeToHtml: (code: string, options: { lang: string; theme: string }) => string;
+    } | null>(null);
+    
+    // Settings state
+    const [settings, setSettings] = useState<ConversionSettings>({
+        tableHandlingMethod: 'image',
+        codeHandlingMethod: 'html',
+        codeTheme: 'light',
+        mermaidHandlingMethod: 'image',
+        mermaidTheme: 'light',
+        addMediumClasses: true,
+        imgbbApiKey: '',
+        uploadToImgBB: false
+    });
 
     const openNewPagePreview = (): void => {
         const cleanHtml = htmlOutput.replace(/^<div>|<\/div>$/g, '');
@@ -761,7 +761,7 @@ Start editing this text or paste your own Markdown content.
                 }
             } else if ((settings.tableHandlingMethod === 'image' || settings.codeHandlingMethod === 'image' || settings.mermaidHandlingMethod === 'image') && 
                 !settings.uploadToImgBB) {
-                description += ". Note: Images are base64 encoded and won't work when pasted to Medium. Enable ImgBB in settings.";
+                description += `. Note: Images are base64 encoded and won't work when pasted to Medium. Enable ImgBB in settings.`;
             }
             
             toast({
@@ -847,7 +847,7 @@ ${htmlOutput}
 
     const loadSample = useCallback((): void => {
         setMarkdown(sampleMarkdown);
-    }, [sampleMarkdown]);
+    }, []);
 
     const clearEditor = useCallback((): void => {
         setMarkdown('');
@@ -882,7 +882,7 @@ ${htmlOutput}
             setCopied(true);
             toast({
                 title: "HTML copied to clipboard",
-                description: "You can now paste it into Medium's editor",
+                description: "You can now paste it into Medium&apos;s editor",
                 duration: 3000,
             });
             setTimeout(() => setCopied(false), 2000);
@@ -924,7 +924,7 @@ ${htmlOutput}
                             <DialogTitle className="text-2xl">Welcome to Markdown2Medium Converter!</DialogTitle>
                         </div>
                         <DialogDescription className="text-left pt-4">
-                            Let's get you started with this simple 3-step guide:
+                            Let&apos;s get you started with this simple 3-step guide:
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -933,7 +933,7 @@ ${htmlOutput}
                             <div>
                                 <h3 className="font-semibold">Write or paste your Markdown</h3>
                                 <p className="text-sm text-muted-foreground my-2">
-                                    Use the editor to write your content with Markdown syntax. We've preloaded a sample for you.
+                                    Use the editor to write your content with Markdown syntax. We&apos;ve preloaded a sample for you.
                                 </p>
                             </div>
                         </div>
@@ -961,7 +961,7 @@ ${htmlOutput}
                                 <div>
                                     <p className="text-sm font-medium text-green-700 dark:text-green-300">Pro tip: Enable ImgBB for Medium</p>
                                     <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-                                        Medium doesn't support base64 images. Enable ImgBB in Settings to automatically upload and convert images to URLs.
+                                        Medium doesn&apos;t support base64 images. Enable ImgBB in Settings to automatically upload and convert images to URLs.
                                     </p>
                                 </div>
                             </div>
@@ -1028,7 +1028,7 @@ ${htmlOutput}
                             <h3 className="font-semibold mb-3">Code vs Table vs Mermaid</h3>
                             <div className="space-y-2 text-sm">
                                 <p className="text-muted-foreground">
-                                    Code blocks use triple backticks (```) while tables use pipes (|). Mermaid is a special code block with 'mermaid' language:
+                                    Code blocks use triple backticks (```) while tables use pipes (|). Mermaid is a special code block with &apos;mermaid&apos; language:
                                 </p>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
@@ -1329,7 +1329,7 @@ A --> B
                                     <Label className="text-xs font-medium mb-2 block">Code Preview</Label> {/* Reduced margin */}
                                     <div className={`${settings.codeTheme === 'dark' ? 'bg-gray-900 text-green-400' : 'bg-white text-gray-800'} p-2 rounded border font-mono text-xs`}> {/* Reduced padding */}
                                         <div className="space-y-1">
-                                            <div><span className={settings.codeTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'}>const</span> <span className={settings.codeTheme === 'dark' ? 'text-yellow-300' : 'text-purple-600'}>greeting</span> = <span className={settings.codeTheme === 'dark' ? 'text-green-300' : 'text-green-600'}>"Hello World!"</span>;</div>
+                                            <div><span className={settings.codeTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'}>const</span> <span className={settings.codeTheme === 'dark' ? 'text-yellow-300' : 'text-purple-600'}>greeting</span> = <span className={settings.codeTheme === 'dark' ? 'text-green-300' : 'text-green-600'}>&quot;Hello World!&quot;</span>;</div>
                                             <div><span className={settings.codeTheme === 'dark' ? 'text-yellow-300' : 'text-purple-600'}>console</span>.<span className={settings.codeTheme === 'dark' ? 'text-blue-400' : 'text-blue-600'}>log</span>(<span className={settings.codeTheme === 'dark' ? 'text-yellow-300' : 'text-purple-600'}>greeting</span>);</div>
                                         </div>
                                     </div>
@@ -1457,7 +1457,7 @@ A --> B
                                                 <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 mt-0.5" />
                                                 <div>
                                                     <p className="text-sm font-medium text-amber-700 dark:text-amber-300">
-                                                        Images won't work in Medium
+                                                        Images won&apos;t work in Medium
                                                     </p>
                                                     <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
                                                         Base64 images are not supported by Medium. Enable ImgBB in Settings to fix this.
@@ -1526,7 +1526,7 @@ A --> B
                                         ) : (
                                             <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
                                                 <Code2 className="h-12 w-12 mb-4 opacity-50" />
-                                                <p>Click the "Convert" button to see the preview</p>
+                                                <p>Click the &quot;Convert&quot; button to see the preview</p>
                                             </div>
                                         )}
                                     </div>
