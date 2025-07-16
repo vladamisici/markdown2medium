@@ -1370,7 +1370,7 @@ A --> B
                         <Image src={"/markdown2medium.png"} alt="markdown2medium" width={50} height={50}></Image>
                         <h1 className="text-xl font-bold">Markdown2Medium</h1>
                     </div>
-                    <a href="https://github.com/vladamisici/" target="_blank" className="text-muted-foreground hover:text-foreground">
+                    <a href="https://github.com/vladamisici/MarkdownToMedium" target="_blank" className="text-muted-foreground hover:text-foreground">
                         <Github className="h-5 w-5" />
                     </a>
                 </div>
